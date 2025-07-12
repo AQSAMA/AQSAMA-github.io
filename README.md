@@ -1,1 +1,1 @@
-# AQSAMA-github.io
+# AQSAMA.github.io
