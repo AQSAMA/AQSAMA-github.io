@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Q. Sabry | Portfolio</title>
+    
+    <!-- Google Fonts for a professional look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to our stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- This canvas is where the starry sky animation will be drawn by JavaScript -->
+    <canvas id="starry-sky-canvas"></canvas>
+
+    <div class="app-wrapper">
+        <!-- The Glassmorphism Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <!-- You can add an <img src="path/to/your/photo.jpg"> here later -->
+                <h1 class="profile-name">Ahmad Q. Sabry</h1>
+                <p class="profile-title">Web Developer & Designer</p>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <!-- The 'active' class highlights the current page -->
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#about" class="nav-link">About Me</a></li>
+                    <!-- To add a new page, copy the line above and change the href and text -->
+                </ul>
+            </nav>
+
+            <footer class="sidebar-footer">
+                <p>&copy; 2025 Ahmad Q. Sabry</p>
+            </footer>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <section id="home" class="content-section active">
+                <h2>Welcome to My Universe</h2>
+                <p>I build clean, efficient, and beautiful experiences for the web.</p>
+                <p>This portfolio is a showcase of my journey through the cosmos of code and design. Explore my work and feel free to get in touch.</p>
+            </section>
+
+            <section id="portfolio" class="content-section">
+                <h2>My Portfolio</h2>
+                <p>Here are some of the projects I've launched into the digital galaxy. Each one represents a unique challenge and a story of creation.</p>
+                <!-- Your projects will go here -->
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">Project 1 (Coming Soon)</div>
+                    <div class="portfolio-item">Project 2 (Coming Soon)</div>
+                    <div class="portfolio-item">Project 3 (Coming Soon)</div>
+                </div>
+            </section>
+
+            <section id="about" class="content-section">
+                <h2>About Me</h2>
+                <p>I am a passionate developer with a love for elegant solutions and cosmic aesthetics. My skills include HTML, CSS, JavaScript, and creating interactive web applications.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Link to our JavaScript file for animations -->
+    <!-- It's placed at the end of the body to let the page load first -->
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>
