@@ -3,26 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Q. Sabry | Digital Portfolio</title>
-    
-    <!-- Professional Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <title>Ahmad Q. Sabry - Portfolio</title>
     <style>
-        :root {
-            --primary-glow-color: #00f5ff;
-            --secondary-glow-color: #8A2BE2; /* BlueViolet for galaxy */
-            --background-dark: #020011;
-            --text-primary: #e0e6f0;
-            --text-secondary: #a0a8b5;
-            --sidebar-bg: rgba(10, 20, 40, 0.3);
-            --card-bg: rgba(20, 30, 60, 0.4);
-            --card-border: rgba(0, 245, 255, 0.2);
-            --card-hover-border: rgba(0, 245, 255, 0.7);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -30,187 +12,409 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--background-dark);
-            color: var(--text-primary);
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
             overflow-x: hidden;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
-        /* --- Animated Background & Effects --- */
-        .background-container {
+        /* Starry Background */
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
         }
 
-        .stars {
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
-            animation: twinkle 200s infinite linear;
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star.white {
+            background: #ffffff;
+        }
+
+        .star.blue {
+            background: #87ceeb;
+            box-shadow: 0 0 3px #87ceeb;
+        }
+
+        .star.red {
+            background: #ff6b6b;
+            box-shadow: 0 0 3px #ff6b6b;
+        }
+
+        .star.yellow {
+            background: #ffd700;
+            box-shadow: 0 0 3px #ffd700;
         }
 
         @keyframes twinkle {
-            from { background-position: 0 0; }
-            to { background-position: -10000px 5000px; }
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
+        /* Distant Galaxy */
         .galaxy {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 15%;
+            z-index: -1;
+            animation: galaxyRotate 30s linear infinite;
+            pointer-events: none;
+        }
+
+        .galaxy::before {
+            content: '';
             position: absolute;
-            width: 200px;
-            height: 200px;
-            top: 15%;
-            right: 10%;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
             background: radial-gradient(ellipse at center, 
-                rgba(138, 43, 226, 0.3) 0%, 
-                rgba(75, 0, 130, 0.1) 40%, 
+                rgba(138, 43, 226, 0.4) 0%, 
+                rgba(75, 0, 130, 0.3) 25%, 
+                rgba(25, 25, 112, 0.2) 50%, 
                 transparent 70%);
             border-radius: 50%;
-            animation: galaxyRotate 60s linear infinite alternate;
-        }
-        
-        @keyframes galaxyRotate {
-            from { transform: rotate(0deg) scale(1); }
-            to { transform: rotate(180deg) scale(1.1); }
+            transform: translate(-50%, -50%);
         }
 
-        .meteor {
+        .galaxy::after {
+            content: '';
             position: absolute;
-            top: -100px;
-            height: 2px;
-            width: 150px;
-            background: linear-gradient(to left, var(--primary-glow-color), transparent);
-            border-radius: 50%;
-            transform: rotate(-45deg);
-            animation: meteor-fall 8s linear infinite;
-        }
-        
-        @keyframes meteor-fall {
-            from { right: -200px; opacity: 1; }
-            to { right: 120%; opacity: 0; }
+            top: 50%;
+            left: 50%;
+            width: 160px;
+            height: 40px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(138, 43, 226, 0.3) 20%, 
+                rgba(255, 255, 255, 0.2) 40%, 
+                rgba(138, 43, 226, 0.4) 60%, 
+                rgba(255, 255, 255, 0.2) 80%, 
+                transparent 100%);
+            border-radius: 50px;
+            transform: translate(-50%, -50%) rotate(25deg);
         }
 
-        /* --- Hamburger Menu Button --- */
-        .menu-toggle {
+        @keyframes galaxyRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Meteors */
+        .meteor {
             position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 1001;
-            width: 30px;
-            height: 22px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, #00f5ff, #ffffff);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00f5ff;
+            animation: meteor 4s linear infinite;
+            pointer-events: none;
         }
 
-        .menu-toggle .line {
-            width: 100%;
-            height: 3px;
-            background-color: var(--primary-glow-color);
-            border-radius: 3px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 5px var(--primary-glow-color);
-        }
-        
-        /* Animation for hamburger to 'X' */
-        .sidebar-open .menu-toggle .line1 {
-            transform: translateY(9.5px) rotate(45deg);
-        }
-        .sidebar-open .menu-toggle .line2 {
-            opacity: 0;
-        }
-        .sidebar-open .menu-toggle .line3 {
-            transform: translateY(-9.5px) rotate(-45deg);
+        @keyframes meteor {
+            0% {
+                transform: translateX(-100px) translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
         }
 
-        /* --- Sidebar Navigation --- */
+        /* Sidebar Styles */
         .sidebar {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 280px;
+            left: -300px;
+            width: 300px;
             height: 100vh;
-            background: var(--sidebar-bg);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 20, 40, 0.9) 100%);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-right: 1px solid var(--card-border);
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            flex-direction: column;
-            padding: 80px 30px 30px;
+            border-right: 2px solid rgba(0, 245, 255, 0.3);
+            transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1001;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
         }
 
-        .sidebar-open .sidebar {
-            transform: translateX(0);
+        .sidebar.open {
+            left: 0;
         }
 
-        .sidebar-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: #fff;
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
             text-align: center;
-            margin-bottom: 50px;
-            font-weight: 700;
-        }
-        
-        .sidebar-logo span {
-            color: var(--primary-glow-color);
         }
 
-        .nav-links {
-            list-style: none;
-        }
-        
-        .nav-links a {
-            display: block;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 15px 10px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00f5ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
         }
 
-        .nav-links a:hover {
-            background: rgba(0, 245, 255, 0.1);
-            color: var(--primary-glow-color);
-            transform: translateX(5px);
+        .sidebar-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        /* --- Main Content --- */
-        main {
-            padding: 0 20px;
+        .sidebar-content {
+            padding: 20px 0;
         }
 
-        section {
-            padding: 120px 0;
+        .dropdown-menu {
             position: relative;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
         }
-        
-        h1, h2, h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+
+        .dropdown-header:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-left-color: #00f5ff;
+        }
+
+        .dropdown-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .dropdown-icon {
+            font-size: 1.2rem;
+            color: #00f5ff;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-menu.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dropdown-menu.active .dropdown-content {
+            max-height: 300px;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px 12px 40px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 245, 255, 0.15);
+            color: #00f5ff;
+            border-left-color: #00f5ff;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item::before {
+            content: '▸';
+            margin-right: 10px;
+            color: #00f5ff;
+            font-size: 0.8rem;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(0, 245, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1002;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(0, 245, 255, 0.2);
+            border-color: #00f5ff;
+            transform: scale(1.1);
+        }
+
+        .sidebar-toggle.active {
+            left: 320px;
+        }
+
+        .hamburger {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .hamburger span {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #00f5ff;
+            transition: all 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .sidebar-toggle.active .hamburger span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .sidebar-toggle.active .hamburger span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .sidebar-toggle.active .hamburger span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Move logo to center on desktop, left on mobile */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00f5ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        .logo:hover {
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            position: absolute;
+            right: 0;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00f5ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #00f5ff;
         }
 
         /* Hero Section */
@@ -220,69 +424,119 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 4.5rem;
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, #fff, var(--primary-glow-color));
+            background: linear-gradient(45deg, #00f5ff, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             animation: glow 2s ease-in-out infinite alternate;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(0, 245, 255, 0.4); }
-            to { text-shadow: 0 0 25px rgba(0, 245, 255, 0.8); }
-        }
-
-        .hero-content p {
+        .hero p {
             font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            color: var(--text-secondary);
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
 
         .cta-button {
             display: inline-block;
             padding: 15px 40px;
-            background: linear-gradient(45deg, var(--primary-glow-color), #0077B6);
+            background: linear-gradient(45deg, #00f5ff, #0080ff);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 30px;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 245, 255, 0.3);
-            border: 1px solid var(--primary-glow-color);
+            box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5);
-        }
-        
-        h2.section-title {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 60px;
-            color: #fff;
-            position: relative;
-        }
-        
-        h2.section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--primary-glow-color);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--primary-glow-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 245, 255, 0.5);
         }
 
-        /* --- Holographic Card Style for Skills --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 245, 255, 0.8);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #00f5ff;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00f5ff, #0080ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 4rem;
+            color: #ffffff;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -290,232 +544,390 @@
         }
 
         .skill-card {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             padding: 30px;
             border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, rgba(0, 245, 255, 0.2), transparent 30%);
-            animation: rotate 6s linear infinite;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 245, 255, 0.2);
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            border-color: var(--card-hover-border);
-            box-shadow: 0 0 25px rgba(0, 245, 255, 0.2);
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00f5ff;
         }
 
-        .skill-card-content {
-            position: relative;
-            z-index: 1;
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #00f5ff;
         }
 
-        .skill-card h3 {
-            color: var(--primary-glow-color);
-            margin-bottom: 15px;
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #00f5ff;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
         /* Responsive Design */
-        @media (max-width: 900px) {
-            .hero-content h1 {
-                font-size: 3rem;
+        @media (max-width: 768px) {
+            .nav-container {
+                justify-content: center; /* FIX: Center the logo */
+                padding: 0 20px; /* FIX: Use symmetrical padding */
             }
-        }
-        
-        @media (max-width: 600px) {
-            .hero-content h1 {
+
+            .logo {
+                text-align: center; /* FIX: Ensure text is centered */
+                font-size: 1.3rem; /* FIX: Make font slightly smaller */
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
                 font-size: 2.5rem;
             }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .profile-placeholder {
+                width: 200px;
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .galaxy {
+                width: 80px;
+                height: 80px;
+            }
+
+            .galaxy::before {
+                width: 80px;
+                height: 80px;
+            }
+
+            .galaxy::after {
+                width: 100px;
+                height: 25px;
+            }
+
             .sidebar {
-                width: 250px;
+                width: 280px;
+                left: -280px;
+            }
+
+            .sidebar-toggle.active {
+                left: 300px;
             }
         }
-        
+
+        /* Scroll Animation */
         .fade-in {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
     </style>
 </head>
-<body class="">
-    <!-- Background Elements -->
-    <div class="background-container">
-        <div class="stars"></div>
-        <div class="galaxy"></div>
-        <div class="meteor"></div>
+<body>
+    <!-- Starry Background -->
+    <div class="stars" id="stars"></div>
+    <div class="galaxy"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Navigation</div>
+            <div class="sidebar-subtitle">Explore Portfolio</div>
+        </div>
+        <div class="sidebar-content">
+            <div class="dropdown-menu" id="aboutDropdown">
+                <div class="dropdown-header">
+                    <span class="dropdown-title">About</span>
+                    <span class="dropdown-icon">▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <a href="#home" class="dropdown-item">Home</a>
+                    <a href="#about" class="dropdown-item">About Me</a>
+                    <a href="#skills" class="dropdown-item">Skills & Expertise</a>
+                    <a href="#contact" class="dropdown-item">Contact</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Hamburger Menu Button -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu">
-        <div class="line line1"></div>
-        <div class="line line2"></div>
-        <div class="line line3"></div>
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </button>
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo">Ahmad Q.<span> Sabry</span></div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </aside>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Ahmad Q. Sabry</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h1>Ahmad Q. Sabry</h1>
-                <p>A passionate developer crafting digital experiences that are out of this world.</p>
-                <a href="#about" class="cta-button">Enter My Universe</a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Ahmad Q. Sabry</h1>
+            <p>Professional Developer & Creative Problem Solver</p>
+            <a href="#about" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Welcome to my portfolio! I'm Ahmad Q. Sabry, a passionate professional dedicated to creating innovative solutions and delivering exceptional results. With a strong foundation in technology and a creative approach to problem-solving, I bring ideas to life through code and design.</p>
+                    <p>My journey in the tech industry has been driven by curiosity and a constant desire to learn and grow. I believe in the power of technology to transform businesses and improve lives, and I'm committed to being part of that transformation.</p>
+                </div>
+                <div class="about-image">
+                    <div class="profile-placeholder">AQS</div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about">
-            <div class="container fade-in">
-                <h2 class="section-title">About Me</h2>
-                <p style="text-align: center; max-width: 800px; margin: -20px auto 40px; color: var(--text-secondary);">
-                    I'm a creative technologist with a love for building beautiful, functional, and user-centric web applications. My journey is fueled by a relentless curiosity and a passion for turning complex problems into elegant solutions. Explore my skills below.
-                </p>
+    <!-- Skills Section -->
+    <section id="skills" class="fade-in">
+        <div class="container">
+            <h2>Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Creating responsive and dynamic web applications with modern technologies and best practices.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Designing intuitive and visually appealing user interfaces that enhance user experience.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Backend Development</h3>
+                    <p>Building robust server-side applications and APIs that power modern web applications.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📱</div>
+                    <h3>Mobile Development</h3>
+                    <p>Developing cross-platform mobile applications that deliver native-like performance.</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <div class="container fade-in">
-                <h2 class="section-title">Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <div class="skill-card-content">
-                            <h3>Frontend Development</h3>
-                            <p>Building responsive and interactive user interfaces with modern frameworks like React & Vue.</p>
-                        </div>
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always excited to discuss new opportunities and collaborate on innovative projects. Let's connect and create something amazing together!</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>ahmad.sabry@example.com</span>
                     </div>
-                    <div class="skill-card">
-                        <div class="skill-card-content">
-                            <h3>Backend Engineering</h3>
-                            <p>Designing robust server-side logic and APIs using technologies like Node.js and Python.</p>
-                        </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">💼</span>
+                        <span>LinkedIn Profile</span>
                     </div>
-                    <div class="skill-card">
-                        <div class="skill-card-content">
-                            <h3>UI/UX Design</h3>
-                            <p>Creating intuitive and visually stunning designs that focus on a seamless user experience.</p>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-card-content">
-                            <h3>Cloud & DevOps</h3>
-                            <p>Deploying and managing scalable applications on cloud platforms like AWS and Vercel.</p>
-                        </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🌐</span>
+                        <span>GitHub Portfolio</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <div class="container fade-in" style="text-align: center;">
-                <h2 class="section-title">Let's Connect</h2>
-                <p style="max-width: 600px; margin: -20px auto 40px; color: var(--text-secondary);">
-                    Have a project in mind or just want to say hello? My inbox is always open.
-                </p>
-                <a href="mailto:your.email@example.com" class="cta-button">Say Hello</a>
-            </div>
-        </section>
-    </main>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Ahmad Q. Sabry. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            const body = document.body;
-            
-            // --- Sidebar Toggle ---
-            menuToggle.addEventListener('click', function() {
-                body.classList.toggle('sidebar-open');
-            });
+        // Create stars - mostly white with some colored
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 200;
+            const colors = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'blue', 'red', 'yellow'];
 
-            // --- Close sidebar when a nav link is clicked ---
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    body.classList.remove('sidebar-open');
-                    
-                    // Smooth scroll to section
-                    const targetId = link.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // --- Fade in elements on scroll ---
-            const faders = document.querySelectorAll('.fade-in');
-            const appearOptions = {
-                threshold: 0.2,
-                rootMargin: "0px 0px -100px 0px"
-            };
-
-            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                });
-            }, appearOptions);
-
-            faders.forEach(fader => {
-                appearOnScroll.observe(fader);
-            });
-            
-            // --- Create a new meteor periodically ---
-            function createMeteor() {
-                const meteor = document.createElement('div');
-                meteor.className = 'meteor';
-                meteor.style.right = (Math.random() * 400 - 200) + 'px';
-                meteor.style.animationDelay = (Math.random() * 5) + 's';
-                meteor.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                document.querySelector('.background-container').appendChild(meteor);
-                
-                setTimeout(() => {
-                    meteor.remove();
-                }, 8000); 
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                const colorClass = colors[Math.floor(Math.random() * colors.length)];
+                star.className = `star ${colorClass}`;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
-            setInterval(createMeteor, 4000);
+        }
+
+        // Create meteors
+        function createMeteor() {
+            const meteor = document.createElement('div');
+            meteor.className = 'meteor';
+            meteor.style.left = Math.random() * 100 + '%';
+            meteor.style.top = Math.random() * 100 + '%';
+            meteor.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(meteor);
+
+            setTimeout(() => {
+                meteor.remove();
+            }, 4000);
+        }
+
+        // Sidebar functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const aboutDropdown = document.getElementById('aboutDropdown');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarToggle.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Dropdown functionality
+        aboutDropdown.addEventListener('click', function(e) {
+            if (e.target.classList.contains('dropdown-header') || e.target.parentElement.classList.contains('dropdown-header')) {
+                aboutDropdown.classList.toggle('active');
+            }
+        });
+
+        // Close sidebar when clicking on dropdown items
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', closeSidebar);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        function fadeInOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            fadeInOnScroll();
+            
+            // Create meteors periodically
+            setInterval(createMeteor, 3000);
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', fadeInOnScroll);
+
+        // Close sidebar on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
         });
     </script>
 </body>
