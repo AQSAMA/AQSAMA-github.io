@@ -3,72 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Q. Sabry | Portfolio</title>
+    <title>Ahmad Q. Sabry | Digital Portfolio</title>
     
-    <!-- Google Fonts for a professional look -->
+    <!-- Professional Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Link to our stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-glow-color: #00f5ff;
+            --secondary-glow-color: #8A2BE2; /* BlueViolet for galaxy */
+            --background-dark: #020011;
+            --text-primary: #e0e6f0;
+            --text-secondary: #a0a8b5;
+            --sidebar-bg: rgba(10, 20, 40, 0.3);
+            --card-bg: rgba(20, 30, 60, 0.4);
+            --card-border: rgba(0, 245, 255, 0.2);
+            --card-hover-border: rgba(0, 245, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* --- Animated Background & Effects --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .stars {
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+            animation: twinkle 200s infinite linear;
+        }
+
+        @keyframes twinkle {
+            from { background-position: 0 0; }
+            to { background-position: -10000px 5000px; }
+        }
+
+        .galaxy {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 15%;
+            right: 10%;
+            background: radial-gradient(ellipse at center, 
+                rgba(138, 43, 226, 0.3) 0%, 
+                rgba(75, 0, 130, 0.1) 40%, 
+                transparent 70%);
+            border-radius: 50%;
+            animation: galaxyRotate 60s linear infinite alternate;
+        }
+        
+        @keyframes galaxyRotate {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(180deg) scale(1.1); }
+        }
+
+        .meteor {
+            position: absolute;
+            top: -100px;
+            height: 2px;
+            width: 150px;
+            background: linear-gradient(to left, var(--primary-glow-color), transparent);
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            animation: meteor-fall 8s linear infinite;
+        }
+        
+        @keyframes meteor-fall {
+            from { right: -200px; opacity: 1; }
+            to { right: 120%; opacity: 0; }
+        }
+
+        /* --- Hamburger Menu Button --- */
+        .menu-toggle {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1001;
+            width: 30px;
+            height: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-toggle .line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-glow-color);
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 5px var(--primary-glow-color);
+        }
+        
+        /* Animation for hamburger to 'X' */
+        .sidebar-open .menu-toggle .line1 {
+            transform: translateY(9.5px) rotate(45deg);
+        }
+        .sidebar-open .menu-toggle .line2 {
+            opacity: 0;
+        }
+        .sidebar-open .menu-toggle .line3 {
+            transform: translateY(-9.5px) rotate(-45deg);
+        }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-right: 1px solid var(--card-border);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            padding: 80px 30px 30px;
+        }
+
+        .sidebar-open .sidebar {
+            transform: translateX(0);
+        }
+
+        .sidebar-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .sidebar-logo span {
+            color: var(--primary-glow-color);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-links a {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 15px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--primary-glow-color);
+            transform: translateX(5px);
+        }
+
+        /* --- Main Content --- */
+        main {
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, var(--primary-glow-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(0, 245, 255, 0.4); }
+            to { text-shadow: 0 0 25px rgba(0, 245, 255, 0.8); }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary-glow-color), #0077B6);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 245, 255, 0.3);
+            border: 1px solid var(--primary-glow-color);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5);
+        }
+        
+        h2.section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #fff;
+            position: relative;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-glow-color);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary-glow-color);
+        }
+
+        /* --- Holographic Card Style for Skills --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(0, 245, 255, 0.2), transparent 30%);
+            animation: rotate 6s linear infinite;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--card-hover-border);
+            box-shadow: 0 0 25px rgba(0, 245, 255, 0.2);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .skill-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-card h3 {
+            color: var(--primary-glow-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .sidebar {
+                width: 250px;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
 </head>
-<body>
-    <!-- This canvas is where the starry sky animation will be drawn by JavaScript -->
-    <canvas id="starry-sky-canvas"></canvas>
-
-    <div class="app-wrapper">
-        <!-- The Glassmorphism Sidebar -->
-        <aside class="sidebar">
-            <div class="profile">
-                <!-- You can add an <img src="path/to/your/photo.jpg"> here later -->
-                <h1 class="profile-name">Ahmad Q. Sabry</h1>
-                <p class="profile-title">Web Developer & Designer</p>
-            </div>
-            
-            <nav class="main-nav">
-                <ul>
-                    <!-- The 'active' class highlights the current page -->
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#about" class="nav-link">About Me</a></li>
-                    <!-- To add a new page, copy the line above and change the href and text -->
-                </ul>
-            </nav>
-
-            <footer class="sidebar-footer">
-                <p>&copy; 2025 Ahmad Q. Sabry</p>
-            </footer>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <section id="home" class="content-section active">
-                <h2>Welcome to My Universe</h2>
-                <p>I build clean, efficient, and beautiful experiences for the web.</p>
-                <p>This portfolio is a showcase of my journey through the cosmos of code and design. Explore my work and feel free to get in touch.</p>
-            </section>
-
-            <section id="portfolio" class="content-section">
-                <h2>My Portfolio</h2>
-                <p>Here are some of the projects I've launched into the digital galaxy. Each one represents a unique challenge and a story of creation.</p>
-                <!-- Your projects will go here -->
-                <div class="portfolio-grid">
-                    <div class="portfolio-item">Project 1 (Coming Soon)</div>
-                    <div class="portfolio-item">Project 2 (Coming Soon)</div>
-                    <div class="portfolio-item">Project 3 (Coming Soon)</div>
-                </div>
-            </section>
-
-            <section id="about" class="content-section">
-                <h2>About Me</h2>
-                <p>I am a passionate developer with a love for elegant solutions and cosmic aesthetics. My skills include HTML, CSS, JavaScript, and creating interactive web applications.</p>
-            </section>
-        </main>
+<body class="">
+    <!-- Background Elements -->
+    <div class="background-container">
+        <div class="stars"></div>
+        <div class="galaxy"></div>
+        <div class="meteor"></div>
     </div>
 
-    <!-- Link to our JavaScript file for animations -->
-    <!-- It's placed at the end of the body to let the page load first -->
-    <script src="assets/js/animations.js"></script>
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu">
+        <div class="line line1"></div>
+        <div class="line line2"></div>
+        <div class="line line3"></div>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">Ahmad Q.<span> Sabry</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Ahmad Q. Sabry</h1>
+                <p>A passionate developer crafting digital experiences that are out of this world.</p>
+                <a href="#about" class="cta-button">Enter My Universe</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container fade-in">
+                <h2 class="section-title">About Me</h2>
+                <p style="text-align: center; max-width: 800px; margin: -20px auto 40px; color: var(--text-secondary);">
+                    I'm a creative technologist with a love for building beautiful, functional, and user-centric web applications. My journey is fueled by a relentless curiosity and a passion for turning complex problems into elegant solutions. Explore my skills below.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container fade-in">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-card-content">
+                            <h3>Frontend Development</h3>
+                            <p>Building responsive and interactive user interfaces with modern frameworks like React & Vue.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-content">
+                            <h3>Backend Engineering</h3>
+                            <p>Designing robust server-side logic and APIs using technologies like Node.js and Python.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-content">
+                            <h3>UI/UX Design</h3>
+                            <p>Creating intuitive and visually stunning designs that focus on a seamless user experience.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-content">
+                            <h3>Cloud & DevOps</h3>
+                            <p>Deploying and managing scalable applications on cloud platforms like AWS and Vercel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container fade-in" style="text-align: center;">
+                <h2 class="section-title">Let's Connect</h2>
+                <p style="max-width: 600px; margin: -20px auto 40px; color: var(--text-secondary);">
+                    Have a project in mind or just want to say hello? My inbox is always open.
+                </p>
+                <a href="mailto:your.email@example.com" class="cta-button">Say Hello</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const body = document.body;
+            
+            // --- Sidebar Toggle ---
+            menuToggle.addEventListener('click', function() {
+                body.classList.toggle('sidebar-open');
+            });
+
+            // --- Close sidebar when a nav link is clicked ---
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    body.classList.remove('sidebar-open');
+                    
+                    // Smooth scroll to section
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // --- Fade in elements on scroll ---
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -100px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+            
+            // --- Create a new meteor periodically ---
+            function createMeteor() {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                meteor.style.right = (Math.random() * 400 - 200) + 'px';
+                meteor.style.animationDelay = (Math.random() * 5) + 's';
+                meteor.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                document.querySelector('.background-container').appendChild(meteor);
+                
+                setTimeout(() => {
+                    meteor.remove();
+                }, 8000); 
+            }
+            setInterval(createMeteor, 4000);
+        });
+    </script>
 </body>
 </html>
